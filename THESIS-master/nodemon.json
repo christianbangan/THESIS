@@ -1,0 +1,8 @@
+{
+    "env": {
+        "JWT_KEY": "secretlangtalagahaha",
+        "EMAIL_ADDRESS": "testsystememail1@gmail.com",
+        "EMAIL_PASSWORD": "testing12341",
+        "HOST": "smtp.gmail.com"
+    }
+}

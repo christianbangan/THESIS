@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://albertchristianbangan.000webhostapp.com/views/main.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+</head>
+<body background="https://albertchristianbangan.000webhostapp.com/views/background.jpg" alt="background"
+  id="background">
+
+        <img src="https://albertchristianbangan.000webhostapp.com/views//logo.png" alt="logo" class="mainlogo">
+        <br>
+          <div id="logreg-forms">
+              <img src="https://albertchristianbangan.000webhostapp.com/views//logo.png" alt="logo" class="mainlogo">
+        <form class="form-signin">   
+            <br>
+            <label id="uname"><b>USN</b></label>
+              <input type="text" placeholder="Username" name="idnumber" id="idnumber" required>
+              <label id="psw"><b>Password</b></label>
+              <input type="password" placeholder="Password" name="pass" id="pass" required>
+              <p style="color: red" id="loginFailed">Wrong credentials. Please try again.</p>
+              <button type="button" class="sign" id="signin">Sign In</button>
+              <br>
+              <!-- <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+              </label> -->
+            <a href="#" id="forgot_pswd" style="text-align: center"><b>Forgot password?</b></a>
+            <hr> 
+        </form>  
+
+            <!-- P Password  -->
+            <form class="form-reset">
+                <label for="uname"><b>Email</b></label>
+                <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required autofocus="">
+                <button class="btn btn-primary btn-block" type="button" id="submitReset">Confirm</button>
+                <p style="color: lawngreen" id="warning1">An email was sent successfully.</p>
+                <p style="color: red" id="warning2">Email not found</p> 
+                <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i><b>Back</b></a>
+            </form>  
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://albertchristianbangan.000webhostapp.com/views/index.js"></script>
+
+    <script>
+      $('#signin').click(function() {
+        var dataaa = {
+          email: $('#idnumber').val(),
+          password: $('#pass').val()
+        }
+        $.ajax({
+          method: 'POST',
+          url: '/users/',
+          data: dataaa,
+          success: (data) => {
+            console.log(dataaa);
+             window.location.replace("/users/home");
+            
+          },
+          error: (err) => {
+            console.log(err);
+            //$('#warning2').show();
+          }
+        });
+      })
+    </script>
+
+
+    <script>
+      $(document).ready(function() {
+         $('#warning1').hide();
+         $('#warning2').hide();
+         $('#loginFailed').hide();
+          $('#signin').click(function () {
+          var dataaa = {
+            email: $('#idnumber').val(),
+            password: $('#pass').val()
+          }
+          $.ajax({
+            method: 'POST',
+            url: '/users/',
+            data: dataaa,
+            success: (data) => {
+              console.log(dataaa);
+              window.location.replace("/users/home");
+            },
+            error: (err) => {
+              console.log(err);
+              $('#loginFailed').show();
+              $('warning1').hide();
+              //$('#warning2').show();
+            }
+          });
+        })
+         $('#submitReset').click(function () {
+          var dataa = {
+            email: $('#resetEmail').val()
+          }
+          $.ajax({
+            method: 'POST',
+            url: '/users/forgot_password',
+            data: dataa,
+            success: (data) => {
+              console.log(data);
+              $('#warning1').show();
+              $('#warning2').hide();
+            },
+            error: (err) => {
+              console.log(err);
+              $('#warning1').hide();
+              $('#warning2').show();
+            }
+          });
+        });
+      });
+    </script>
+
+</body>
+</html>
